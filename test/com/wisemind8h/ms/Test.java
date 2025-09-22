@@ -14,7 +14,7 @@ private Field field;
 @BeforeEach
 void startField() {
 
-	field= new Field(3, 3);
+	field = new Field(3, 3);
 
 }
 
