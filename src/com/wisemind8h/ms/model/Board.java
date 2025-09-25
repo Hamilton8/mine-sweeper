@@ -1,6 +1,7 @@
 package com.wisemind8h.ms.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -80,7 +81,17 @@ public class Board {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		int n = 0;
+		
+		sb.append("  ");
+		for (int c = 0; c<columns; c++) {
+			sb.append(" ");
+			sb.append(c);
+			sb.append(" ");
+		}
+		sb.append("\n");
 		for (int i = 0; i < rows; i++) {
+			sb.append(" ");
+			sb.append(i);
 			for (int j = 0; j <columns; j++) {
 				sb.append(" ");
 				sb.append(fields.get(n));

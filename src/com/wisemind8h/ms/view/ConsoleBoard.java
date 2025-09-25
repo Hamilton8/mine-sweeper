@@ -57,7 +57,7 @@ public class ConsoleBoard {
 					board.toggleMarking(xy.next(), xy.next());
 				}
 			}
-			System.out.println("You won!");
+			//System.out.println("You won!");
 		}catch(ExplosionException e) {
 			System.out.println(board);
 			System.out.println("You lose!");
