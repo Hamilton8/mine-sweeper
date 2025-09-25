@@ -1,9 +1,10 @@
 package com.wisemind8h.ms.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
+import com.wisemind8h.ms.exception.ExplosionException;
 
 public class Board {
 	private int rows;
@@ -23,10 +24,15 @@ public class Board {
 	}
 	
 	public void open(int row, int column) {
-		fields.parallelStream()
-		.filter(f -> f.getRow()==row && f.getColumn()==column)
-		.findFirst()
-		.ifPresent(f -> f.open());
+		try {
+			fields.parallelStream()
+			.filter(f -> f.getRow()==row && f.getColumn()==column)
+			.findFirst()
+			.ifPresent(f -> f.open());
+		}catch(ExplosionException e) {
+			fields.forEach(n->n.setOpen(true));
+			throw e;
+		}
 	}
 	
 	public void toggleMarking(int row, int column) {
@@ -56,12 +62,11 @@ public class Board {
 		long armedMines = 0;
 		Predicate<Field> mined = n -> n.isMined();
 		
-		do {
+		while(armedMines< mines){
 			armedMines = fields.stream().filter(mined).count();
 			int random = (int) (Math.random()*fields.size());
 			fields.get(random).mine();
-			
-		}while(armedMines>mines);
+		}
 	}
 	
 	public boolean goalReached() {
